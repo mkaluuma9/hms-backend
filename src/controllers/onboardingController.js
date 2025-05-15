@@ -1,4 +1,4 @@
-const prisma = require('../prismaClient'); // We'll create this
+const prisma = require('../utils/prismaClient'); // We'll create this
 const bcrypt = require('bcryptjs');
 const { sendEmail } = require('../utils/email');
 const path = require('path');

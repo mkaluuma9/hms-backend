@@ -36,7 +36,7 @@ const rejectApplication = async (req, res) => {
     });
 
     await sendEmail({
-      to: 'applicant@example.com', // fetch applicant email dynamically
+      to: user.personalEmail, // fetch applicant email dynamically
       subject: 'Onboarding Application Rejected',
       text: `Your onboarding application was rejected for this reason: ${reason}`
     });
