@@ -5,7 +5,7 @@ const { submitOnboarding, getMyOnboardingStatus } = require('../controllers/onbo
 
 const upload = multer({
   dest: 'uploads/',
-  limits: { fileSize: 10 * 1024 * 1024 }, // 10MB
+  limits: { fileSize: 30 * 1024 * 1024 }, // 10MB
   fileFilter: (req, file, cb) => {
     if (file.mimetype !== 'application/pdf' && !file.mimetype.startsWith('image/')) {
       return cb(new Error('Only PDF and images allowed'));
@@ -13,6 +13,9 @@ const upload = multer({
     cb(null, true);
   }
 });
+
+// console.log('Headers:', req.headers);
+// console.log('Is multer req.files present?', req.files);
 
 router.post('/submit', upload.fields([
   { name: 'passportPhoto', maxCount: 1 },

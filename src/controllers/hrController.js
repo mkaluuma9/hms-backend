@@ -1,4 +1,4 @@
-const prisma = require('../prismaClient');
+const prisma = require('../utils/prismaClient');
 const bcrypt = require('bcryptjs');
 const { sendEmail } = require('../utils/email');
 
