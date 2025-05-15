@@ -1,0 +1,74 @@
+// prisma/schema.prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              String    @id @default(cuid())
+  employeeId      String?   @unique
+  firstName       String
+  lastName        String
+  nationalId      String    @unique
+  personalEmail   String    @unique
+  workEmail       String?   @unique
+  phone           String
+  dateOfBirth     DateTime
+  gender          String
+  passportPhoto   String
+  nextOfKinName   String
+  nextOfKinRelation String
+  homeDistrict    String
+  dependants      Int
+
+  bankName        String?
+  accountNumber   String?
+  tinNumber       String?
+  nssfNumber      String?
+
+  cv              String?   // PDF file path
+  referenceLetter String?   // PDF file path
+  academicDocs    AcademicDocument[]
+
+  isVerified      Boolean   @default(false)
+  password        String
+  role            Role      @default(EMPLOYEE)
+
+  position        String?
+  supervisorId    String?
+  supervisor      User?     @relation("SupervisorRelation", fields: [supervisorId], references: [id])
+  subordinates    User[]    @relation("SupervisorRelation")
+
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  contract        Contract?
+}
+
+model AcademicDocument {
+  id        String   @id @default(cuid())
+  userId    String
+  filePath  String   // Local PDF path
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+model Contract {
+  id              String   @id @default(cuid())
+  userId          String   @unique
+  startDate       DateTime
+  endDate         DateTime
+  contractType    String   // e.g. "probation", "full-time"
+  contractFile    String   // PDF path
+  lastEditedAt    DateTime @updatedAt
+
+  user            User     @relation(fields: [userId], references: [id])
+}
+
+enum Role {
+  EMPLOYEE
+  HR
+  ADMIN
+}

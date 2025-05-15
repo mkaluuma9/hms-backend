@@ -1,0 +1,27 @@
+# Node modules
+node_modules/
+
+# Environment files
+.env
+.env.*.local
+
+# Prisma generated files
+prisma/dev.db
+prisma/dev.db-journal
+prisma/migrations/
+
+# File uploads (optional – keep if you don’t want uploaded files tracked)
+uploads/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# IDE settings (VSCode, JetBrains, etc.)
+.vscode/
+.idea/
